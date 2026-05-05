@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yousra Jamhour — Portfolio CDD Informaticien (GIRTEC)</title>
+  <meta name="description" content="Portfolio orienté CDD informaticien généraliste : développement applicatif (C# / WinForm), bases géospatiales (PostgreSQL/PostGIS), traitement intelligent de documents (OCR, NLP)." />
+  <meta name="author" content="Yousra Jamhour" />
+  <meta name="theme-color" content="#063d3a" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Styles spécifiques à la vue GIRTEC (n'altèrent pas styles.css) -->
+  <style>
+    .context-banner-girtec {
+      background: linear-gradient(90deg, #063d3a, #1a3d4d);
+    }
+    .context-banner-girtec a + a { margin-left: 4px; }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    /* Petit utilitaire pour le bloc "statut" d'ArchiScan */
+    .project-status-line {
+      margin-top: 8px;
+      font-size: 0.86rem;
+      color: var(--ink-500);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-ring"></div>
+    <div class="preloader-text">YJ</div>
+  </div>
+
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="mesh-blob mesh-a"></div>
+    <div class="mesh-blob mesh-b"></div>
+    <div class="mesh-blob mesh-c"></div>
+  </div>
+  <canvas id="particles" class="particles-canvas" aria-hidden="true"></canvas>
+  <!-- Barre de navigation -->
+  <header class="topbar">
+    <a href="#home" class="brand" aria-label="Accueil">
+      <span class="brand-monogram">YJ</span>
+      <span class="brand-text">
+        <span class="brand-name">Yousra Jamhour</span>
+        <span class="brand-sub">Développement · Data · Systèmes d'information</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a href="#home">Accueil</a>
+      <a href="#profil">Profil</a>
+      <a href="#formation">Formation</a>
+      <a href="#experiences">Expériences</a>
+      <a href="#competences">Compétences</a>
+      <a href="#projects">Projets</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Basculer le thème">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v3"/><path d="M12 19v3"/><path d="M2 12h3"/><path d="M19 12h3"/><path d="M4.2 4.2l2.1 2.1"/><path d="M17.7 17.7l2.1 2.1"/><path d="M4.2 19.8l2.1-2.1"/><path d="M17.7 6.3l2.1-2.1"/></g></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+      </button>
+      <a class="btn primary btn-cta" href="CV%20JAMHOUR%20Yousra%20M2.pdf" target="_blank" rel="noopener noreferrer">
+        <span>Télécharger CV</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18l-5 5h3v6h4v-6h3l-5-5z"/></svg>
+      </a>
+    </div>
+
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <!-- Hero — orienté CDD GIRTEC -->
+    <section id="home" class="hero reveal">
+      <div class="hero-grid">
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-ring"></div>
+          <img src="photo.jpg" alt="Photo de Yousra Jamhour" class="hero-photo" />
+          <span class="status-pill"><span class="status-dot"></span>Disponible immédiatement · CDD / CDI</span>
+        </div>
+
+        <div class="hero-content">
+          <p class="hero-kicker">
+            <span class="wave"></span> Bonjour, je suis
+          </p>
+          <h1 class="hero-name">Yousra Jamhour</h1>
+          <p class="hero-role">
+            <span class="role-typed-wrap">
+              <span id="typed-role" class="typed-role">Développeuse polyvalente</span><span class="caret">|</span>
+            </span>
+          </p>
+          <p class="hero-text">
+            Ingénieure des données diplômée d'un Master Big Data (ENSIAS), actuellement en Master 1 Data Engineer à l'Université de Corse. Profil polyvalent à l'aise avec le <strong>développement applicatif</strong>, les <strong>bases de données géospatiales</strong> et le <strong>traitement intelligent de documents</strong> par OCR et IA.
+          </p>
+
+          <div class="hero-cta">
+            <a class="btn primary magnetic" href="CV%20JAMHOUR%20Yousra%20M2.pdf" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+              Voir mon CV
+            </a>
+            <a class="btn ghost magnetic" href="#archiscan">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM10.5 16c-1.5 0-2.5-1-2.5-2.5S9 11 10.5 11s2.5 1 2.5 2.5c0 .6-.2 1.1-.5 1.5l2 2-1 1-2-2c-.4.3-.9.5-1.5.5z"/></svg>
+              Projet phare ArchiScan
+            </a>
+            <a class="btn outline magnetic" href="#contact">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              Me contacter
+            </a>
+          </div>
+
+          <div class="hero-badges">
+            <span class="hero-badge"><span class="hero-badge-dot"></span>Master Data Engineer — Corse</span>
+            <span class="hero-badge"><span class="hero-badge-dot"></span>Disponible immédiatement</span>
+            <span class="hero-badge"><span class="hero-badge-dot"></span>C# · WinForm · PostGIS</span>
+            <span class="hero-badge"><span class="hero-badge-dot"></span>Géomatique · OCR · NLP</span>
+          </div>
+        </div>
+      </div>
+
+      <a class="scroll-indicator" href="#stats" aria-label="Faire défiler">
+        <span></span>
+        <span>Faire défiler</span>
+      </a>
+    </section>
+
+    <!-- Statistiques -->
+    <section id="stats" class="stats-strip reveal">
+      <div class="stat">
+        <span class="stat-number" data-count="5">0</span>
+        <span class="stat-label">Années en Data &amp; Dev</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-count="8">0</span>
+        <span class="stat-label">Projets phares</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" data-count="2">0</span>
+        <span class="stat-label">Expériences pro</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number"><span data-count="15">0</span>+</span>
+        <span class="stat-label">Technos maîtrisées</span>
+      </div>
+    </section>
+
+    <!-- Profil — Pourquoi ce poste ? -->
+    <section id="profil" class="panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">01 · Profil</span>
+        <h2>Un profil pensé pour le poste informaticien généraliste</h2>
+        <p class="section-sub">Trois angles qui correspondent directement aux missions GIRTEC : développement applicatif, données géospatiales et traitement documentaire.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card tilt-card">
+          <h3>Développement applicatif</h3>
+          <p>Une expérience de 9 mois en production sur un produit React/Django, complétée par des projets desktop (PyQt5) et fullstack (Node/FastAPI/Docker). À l'aise pour apprendre rapidement de nouveaux environnements comme C#/.NET WinForm.</p>
+          <div class="chip-row">
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">Django</span>
+            <span class="tech-chip">Node.js</span>
+            <span class="tech-chip">PyQt5</span>
+            <span class="tech-chip">C# (apprentissage)</span>
+          </div>
+        </article>
+
+        <article class="card tilt-card">
+          <h3>Données &amp; SIG</h3>
+          <p>Maîtrise de PostgreSQL et SQL, projet de fin d'études en géomatique appliquée (traduction d'images satellitaires en cartes via GAN). Familière avec les chaînes de traitement géospatial et les bases de données spatiales.</p>
+          <div class="chip-row">
+            <span class="tech-chip">PostgreSQL</span>
+            <span class="tech-chip">PostGIS</span>
+            <span class="tech-chip">GDAL</span>
+            <span class="tech-chip">SIG</span>
+            <span class="tech-chip">SQL avancé</span>
+          </div>
+        </article>
+
+        <article class="card tilt-card">
+          <h3>Traitement intelligent de documents</h3>
+          <p>Plusieurs projets autour de l'OCR, du NLP et de la vision par ordinateur. Capacité à concevoir des chaînes complètes : extraction → structuration → indexation → visualisation, ce qui rejoint les enjeux de reconstitution documentaire.</p>
+          <div class="chip-row">
+            <span class="tech-chip">Tesseract OCR</span>
+            <span class="tech-chip">spaCy</span>
+            <span class="tech-chip">Transformers</span>
+            <span class="tech-chip">Computer Vision</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Formation — Timeline -->
+    <section id="formation" class="panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">02 · Parcours académique</span>
+        <h2>Formation</h2>
+        <p class="section-sub">Un parcours international entre le Maroc et la France, centré sur la data, l'IA et le développement.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item" data-year="2025 — 2027">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card tilt-card">
+            <span class="timeline-tag current">En cours</span>
+            <h3>Master 1 Informatique — Parcours Data Engineer</h3>
+            <p class="timeline-meta">Université de Corse Pascal Paoli · France</p>
+            <p>Approfondissement en ingénierie des données, Big Data, cloud et IA appliquée. Disponible immédiatement pour un contrat à Ajaccio.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-year="2020 — 2022">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card tilt-card">
+            <h3>Master Sciences des Données &amp; Big Data</h3>
+            <p class="timeline-meta">ENSIAS · Rabat, Maroc</p>
+            <p>Formation d'ingénieur en data science, algorithmique, systèmes distribués et apprentissage automatique. Projet de fin d'études en traduction d'images satellites (géomatique appliquée).</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-year="2017 — 2020">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card tilt-card">
+            <h3>Licence Sciences Mathématiques &amp; Informatiques</h3>
+            <p class="timeline-meta">Université Chouaib Doukkali · El Jadida, Maroc</p>
+            <p>Option développement et bases de données. Fondamentaux mathématiques, algorithmique et programmation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expériences -->
+    <section id="experiences" class="panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">03 · Expériences</span>
+        <h2>Expériences Professionnelles</h2>
+        <p class="section-sub">Passage par le développement produit en production et par la data en milieu bancaire.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card tilt-card">
+          <div class="card-top">
+            <div class="card-badge">React · Django · 9 mois</div>
+            <span class="card-period">Juin 2023 — Février 2024</span>
+          </div>
+          <h3>Solway Morocco Consulting &amp; Services</h3>
+          <p class="role-title">Développeuse Web ReactJS</p>
+          <p>React avancé, développement front-end, intégration back-end Django et livraison continue sur un produit RH en production.</p>
+          <button class="toggle-details" type="button" aria-expanded="false" aria-controls="exp-solway-details">
+            <span class="label-open">Voir les détails</span>
+            <span class="label-close">Masquer les détails</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M7.4 8.6L12 13.2l4.6-4.6L18 10l-6 6-6-6z"/></svg>
+          </button>
+          <div class="details-block" id="exp-solway-details" hidden>
+            <ul class="check-list">
+              <li>Stage pré-embauche de 2 mois puis intégration en temps plein <strong>(9 mois au total en production)</strong>.</li>
+              <li>Développement du site RH avec versions responsive mobile et tablette.</li>
+              <li>Création de composants React <em>from scratch</em> modulaires et réutilisables.</li>
+              <li>Maintenance et évolution continues du front-end et du back-end. Daily meetings et revues de code.</li>
+            </ul>
+            <div class="chip-row">
+              <span class="tech-chip">ReactJS</span>
+              <span class="tech-chip">Django</span>
+              <span class="tech-chip">JavaScript</span>
+              <span class="tech-chip">CSS</span>
+              <span class="tech-chip">Python</span>
+              <span class="tech-chip">Git</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card tilt-card">
+          <div class="card-top">
+            <div class="card-badge">Big Data · Banque</div>
+            <span class="card-period">Février 2023 — Mars 2023</span>
+          </div>
+          <h3>Attawfiq Micro Finance</h3>
+          <p class="role-title">Stagiaire en Ingénierie Big Data</p>
+          <p>Automatisation du rapprochement entre deux bases bancaires et optimisation des algorithmes sur gros volumes.</p>
+          <button class="toggle-details" type="button" aria-expanded="false" aria-controls="exp-attawfiq-details">
+            <span class="label-open">Voir les détails</span>
+            <span class="label-close">Masquer les détails</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M7.4 8.6L12 13.2l4.6-4.6L18 10l-6 6-6-6z"/></svg>
+          </button>
+          <div class="details-block" id="exp-attawfiq-details" hidden>
+            <ul class="check-list">
+              <li>Développement d'une application bureau (PyQt5) pour le rapprochement automatique de deux bases bancaires.</li>
+              <li>Optimisation des algorithmes pour la précision, la rapidité et le traitement de fichiers volumineux.</li>
+              <li>Vérification systématique des résultats et suivi avec l'équipe métier.</li>
+            </ul>
+            <div class="chip-row">
+              <span class="tech-chip">Python</span>
+              <span class="tech-chip">SQLite</span>
+              <span class="tech-chip">PyQt5</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Compétences -->
+    <section id="competences" class="panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">04 · Compétences</span>
+        <h2>Compétences Techniques</h2>
+        <p class="section-sub">Stack alignée sur les besoins du poste : développement, données géospatiales, IA et outillage.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="skill-card tilt-card">
+          <div class="skill-icon skill-icon-data">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          </div>
+          <h3>Langages &amp; Développement</h3>
+          <ul class="skill-list">
+            <li><span>Python</span><span class="skill-bar"><span style="--lvl:92%"></span></span></li>
+            <li><span>C# / .NET (apprentissage actif)</span><span class="skill-bar"><span style="--lvl:55%"></span></span></li>
+            <li><span>JavaScript / TypeScript</span><span class="skill-bar"><span style="--lvl:88%"></span></span></li>
+            <li><span>SQL</span><span class="skill-bar"><span style="--lvl:90%"></span></span></li>
+          </ul>
+        </article>
+
+        <article class="skill-card tilt-card">
+          <div class="skill-icon skill-icon-ai">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3" fill="currentColor"/><path fill="currentColor" d="M4 8v4c0 1.66 3.58 3 8 3s8-1.34 8-3V8c0 1.66-3.58 3-8 3s-8-1.34-8-3zM4 14v4c0 1.66 3.58 3 8 3s8-1.34 8-3v-4c0 1.66-3.58 3-8 3s-8-1.34-8-3z"/></svg>
+          </div>
+          <h3>Bases de données &amp; SIG</h3>
+          <ul class="skill-list">
+            <li><span>PostgreSQL / PostGIS</span><span class="skill-bar"><span style="--lvl:80%"></span></span></li>
+            <li><span>MySQL / Oracle</span><span class="skill-bar"><span style="--lvl:78%"></span></span></li>
+            <li><span>MongoDB</span><span class="skill-bar"><span style="--lvl:75%"></span></span></li>
+            <li><span>GDAL</span><span class="skill-bar"><span style="--lvl:60%"></span></span></li>
+          </ul>
+        </article>
+
+        <article class="skill-card tilt-card">
+          <div class="skill-icon skill-icon-web">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5 5 5 0 0 0 .5 2.2A6 6 0 0 0 6 21h12a6 6 0 0 0-1.5-11.8A5 5 0 0 0 17 7a5 5 0 0 0-5-5z"/></svg>
+          </div>
+          <h3>IA &amp; Traitement de documents</h3>
+          <ul class="skill-list">
+            <li><span>OCR (Tesseract)</span><span class="skill-bar"><span style="--lvl:80%"></span></span></li>
+            <li><span>NLP (spaCy, Transformers)</span><span class="skill-bar"><span style="--lvl:85%"></span></span></li>
+            <li><span>Computer Vision</span><span class="skill-bar"><span style="--lvl:88%"></span></span></li>
+            <li><span>Machine Learning</span><span class="skill-bar"><span style="--lvl:90%"></span></span></li>
+          </ul>
+        </article>
+
+        <article class="skill-card tilt-card">
+          <div class="skill-icon skill-icon-db">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+          </div>
+          <h3>Outillage &amp; DevOps</h3>
+          <ul class="skill-list">
+            <li><span>Git / GitLab</span><span class="skill-bar"><span style="--lvl:88%"></span></span></li>
+            <li><span>Linux</span><span class="skill-bar"><span style="--lvl:80%"></span></span></li>
+            <li><span>Docker</span><span class="skill-bar"><span style="--lvl:75%"></span></span></li>
+            <li><span>Documentation technique</span><span class="skill-bar"><span style="--lvl:85%"></span></span></li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="soft-skills">
+        <h3>Soft skills</h3>
+        <div class="chip-row">
+          <span class="soft-chip">Autonomie</span>
+          <span class="soft-chip">Rigueur</span>
+          <span class="soft-chip">Pédagogie</span>
+          <span class="soft-chip">Curiosité</span>
+          <span class="soft-chip">Pragmatisme</span>
+          <span class="soft-chip">Travail en équipe</span>
+          <span class="soft-chip">Adaptabilité</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projets -->
+    <section id="projects" class="panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">05 · Réalisations</span>
+        <h2>Projets Phares</h2>
+        <p class="section-sub">ArchiScan en tête : projet personnel pensé directement pour les enjeux de reconstitution documentaire.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtres projets">
+        <button class="chip active" data-filter="all" type="button">Tous <span class="chip-count">8</span></button>
+        <button class="chip" data-filter="desktop" type="button">Desktop</button>
+        <button class="chip" data-filter="geomatique" type="button">Géomatique</button>
+        <button class="chip" data-filter="nlp" type="button">OCR/NLP</button>
+        <button class="chip" data-filter="web" type="button">Web</button>
+      </div>
+
+      <div class="projects-grid">
+        <!-- 1. ArchiScan — projet phare GIRTEC -->
+        <article id="archiscan" class="project-card tilt-card" data-tags="desktop nlp">
+          <div class="project-thumb thumb-pfe">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v6.5l-2 2-2-2c-.5-1-1.5-1.5-2.5-1.5C9 14 8 15 8 16.5S9 19 10.5 19c1 0 2-.5 2.5-1.5l2 2-1 1zm-7.5-3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+            </svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">Desktop · OCR · Géomatique</span>
+              <span class="project-year">2026</span>
+            </div>
+            <h3>ArchiScan — Numérisation et indexation d'archives</h3>
+            <p>Application desktop pour numériser des documents anciens, extraire automatiquement les entités (noms, dates, lieux) via OCR et NLP, puis les géolocaliser sur une carte interactive PostGIS.</p>
+            <div class="chip-row">
+              <span class="tech-chip">C#</span>
+              <span class="tech-chip">WinForm</span>
+              <span class="tech-chip">PostgreSQL/PostGIS</span>
+              <span class="tech-chip">NHibernate</span>
+              <span class="tech-chip">GDAL</span>
+              <span class="tech-chip">Tesseract OCR</span>
+              <span class="tech-chip">spaCy</span>
+              <span class="tech-chip">Merise</span>
+              <span class="tech-chip">GitLab</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="archiscan-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="archiscan-extra" hidden>
+              <p><strong>Contexte :</strong> les archives papier (lettres familiales, certificats, photos anciennes) accumulent une richesse historique difficile à exploiter. ArchiScan automatise la chaîne complète : numérisation → extraction de texte → identification d'entités → cartographie interactive.</p>
+              <p><strong>Architecture (3 couches) :</strong> frontend WinForm C# · couche métier avec NHibernate · backend PostgreSQL/PostGIS. Modules transverses : OCR/NLP (Tesseract + spaCy) et géospatial (GDAL.NET).</p>
+              <p><strong>Fonctionnalités :</strong> numérisation par lots · OCR multilingue avec correction manuelle · extraction d'entités nommées (NER) · géocodage automatique des lieux · visualisation cartographique interactive · recherche full-text avec filtres temporels et géographiques.</p>
+              <p><strong>Modèle de données :</strong> schéma Merise avec entités <em>Document, Personne, Lieu, Événement, Tag</em> — relations N:N.</p>
+              <p><strong>Statut :</strong> projet personnel en cours, conçu pour explorer la chaîne C#/.NET + PostGIS + IA appliquée au traitement de documents.</p>
+              <p class="project-status-line">Projet en cours de développement — code source disponible sur demande.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. PFE ENSIAS — reframé géomatique -->
+        <article class="project-card tilt-card" data-tags="geomatique cv">
+          <div class="project-thumb thumb-pfe">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.62 1l-3.54 3.54 1.41 1.41 1.42-1.41 4.24 4.24-1.42 1.42L15.18 11.6l-1.42 1.42 4.24 4.24-1.41 1.42 1.41 1.41 3.54-3.54L11.62 1zM2 17l5 5 1.41-1.41-3.54-3.54L8.41 14H10v-2H6.41l3.54-3.54L8.54 7 2 13.5V17z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">PFE · Géomatique · Vision</span>
+              <span class="project-year">2022</span>
+            </div>
+            <h3>Image-to-Image Translation — Satellite → Cartes (PFE ENSIAS)</h3>
+            <p>Projet de <strong>géomatique appliquée</strong> : deux GAN conditionnels (Pix2Pix et CycleGAN) pour traduire automatiquement des images satellites en cartes lisibles. Rapport complet publié en open source.</p>
+            <div class="chip-row">
+              <span class="tech-chip">Pix2Pix</span>
+              <span class="tech-chip">CycleGAN</span>
+              <span class="tech-chip">U-Net</span>
+              <span class="tech-chip">ResNet</span>
+              <span class="tech-chip">TensorFlow</span>
+              <span class="tech-chip">OpenCV</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="pfe-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="pfe-extra" hidden>
+              <p><strong>Contexte :</strong> mémoire de fin d'études du Master Sciences des Données &amp; Big Data à l'ENSIAS (Rabat, 2022).</p>
+              <p><strong>Enjeu :</strong> comparer un modèle supervisé (Pix2Pix) et un modèle non supervisé (CycleGAN) sur le même jeu de données satellitaire.</p>
+              <p><strong>Publication :</strong> rapport diffusé sur GitHub sous licence Creative Commons BY-NC-ND 4.0.</p>
+              <p>
+                <a class="link-inline" href="https://github.com/jamhouryousra/pfe_2022" target="_blank" rel="noopener noreferrer">⭐ Voir le dépôt GitHub (pfe_2022) →</a>
+              </p>
+              <p>
+                <a class="link-inline" href="https://github.com/jamhouryousra/pfe_2022/blob/main/Rapport_PFE_JAMHOUR_Yousra.pdf" target="_blank" rel="noopener noreferrer">Télécharger le rapport PDF depuis GitHub →</a>
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. MedTrack -->
+        <article class="project-card tilt-card" data-tags="web">
+          <div class="project-thumb thumb-medical">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19 8h-2V3H7v5H5c-1.1 0-2 .9-2 2v9h18v-9c0-1.1-.9-2-2-2zM9 5h6v3H9V5zm6 12h-2v-2h-2v2H9v-2H7v-2h2v-2h2v2h2v-2h2v2h2v2h-2v2z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">Fullstack · ML · CI/CD</span>
+              <span class="project-year">2026</span>
+            </div>
+            <h3>MedTrack — Plateforme médicale fullstack</h3>
+            <p>Plateforme de gestion médicale : patients, rendez-vous, dossiers médicaux, analyses, paiements en ligne, prédiction ML du taux de no-show et chatbot IA pour l'administration.</p>
+            <div class="chip-row">
+              <span class="tech-chip">React · Vite</span>
+              <span class="tech-chip">Node.js · Express</span>
+              <span class="tech-chip">MySQL</span>
+              <span class="tech-chip">FastAPI</span>
+              <span class="tech-chip">Docker</span>
+              <span class="tech-chip">Stripe</span>
+              <span class="tech-chip">GitHub Actions</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="medtrack-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="medtrack-extra" hidden>
+              <p><strong>Architecture :</strong> 3 services orchestrés avec Docker Compose — backend Express + Sequelize, frontend React/Vite, service ML FastAPI pour la prédiction de no-show.</p>
+              <p><strong>DevOps :</strong> CI/CD sur GitHub Actions avec publication automatique des images sur GHCR et scan de sécurité Trivy à chaque push.</p>
+              <p><strong>Équipe :</strong> projet réalisé à 5 (Y. Jamhour, M. Karkache, M. Wahab, I. Hammiche, T. Hamiti).</p>
+              <p>
+                <a class="link-inline" href="https://github.com/MehdiKarkache/MedTrack_Fullstack" target="_blank" rel="noopener noreferrer">⭐ Voir le dépôt GitHub (MedTrack_Fullstack) →</a>
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. ReadZen -->
+        <article class="project-card tilt-card" data-tags="web nlp">
+          <div class="project-thumb thumb-nlp">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">Web · IA · Accessibilité</span>
+              <span class="project-year">2025</span>
+            </div>
+            <h3>ReadZen — Lecteur de documents intelligent</h3>
+            <p>Plateforme de lecture et de gestion de documents professionnels : indexation automatique par domaine, résumés IA, carte mentale, traduction multilingue et mode dyslexie. Projet livré en 48 h au Hackathon CAF 2025.</p>
+            <div class="chip-row">
+              <span class="tech-chip">React · TypeScript</span>
+              <span class="tech-chip">Vite · Tailwind</span>
+              <span class="tech-chip">Node.js · Express</span>
+              <span class="tech-chip">MongoDB</span>
+              <span class="tech-chip">OpenAI</span>
+              <span class="tech-chip">Tesseract.js</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="readzen-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="readzen-extra" hidden>
+              <p><strong>IA embarquée :</strong> détection automatique parmi 14 domaines métier (scoring pondéré), génération de résumés et de cartes mentales, traduction en 8 langues, chat contextuel sur document.</p>
+              <p><strong>Accessibilité :</strong> 4 thèmes de lecture (clair, sombre, sépia, haut contraste), police <em>OpenDyslexic</em>, zoom 75 → 200 %, contrôle fin de l'interligne.</p>
+              <p><strong>Formats supportés :</strong> PDF, DOCX, TXT et images (OCR Tesseract.js côté client).</p>
+              <p>
+                <a class="link-inline" href="https://github.com/Youssouf46/ReadZen_Hackathon" target="_blank" rel="noopener noreferrer">⭐ Voir le dépôt GitHub (ReadZen_Hackathon) →</a>
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Détection d'objets -->
+        <article class="project-card tilt-card" data-tags="cv">
+          <div class="project-thumb thumb-auto">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h12v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-8l-2.08-5.99zM6.5 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">Vision · Conduite autonome</span>
+              <span class="project-year">2024</span>
+            </div>
+            <h3>Détection d'objets — Conduite autonome</h3>
+            <p>Prototype de détection d'objets pour scènes de conduite : véhicules, piétons et signalisation routière, appuyé sur un pipeline de perception visuelle.</p>
+            <div class="chip-row">
+              <span class="tech-chip">PyTorch</span>
+              <span class="tech-chip">YOLO</span>
+              <span class="tech-chip">OpenCV</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="autodriving-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="autodriving-extra" hidden>
+              <p><strong>Approche :</strong> pipeline de perception visuelle, pré-traitement OpenCV et évaluation qualitative sur images réelles.</p>
+              <p><strong>Enjeu :</strong> obtenir une détection robuste en conditions variées (jour, nuit, météo).</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Solway -->
+        <article class="project-card tilt-card" data-tags="web">
+          <div class="project-thumb thumb-web">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">Web · Production</span>
+              <span class="project-year">2023 — 2024</span>
+            </div>
+            <h3>Site RH ReactJS — Solway Maroc</h3>
+            <p>Construction d'interfaces professionnelles et intégration fluide avec un back-end Django sur un vrai produit RH.</p>
+            <div class="chip-row">
+              <span class="tech-chip">ReactJS</span>
+              <span class="tech-chip">Django</span>
+              <span class="tech-chip">JavaScript</span>
+              <span class="tech-chip">CSS</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="solway-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="solway-extra" hidden>
+              <p><strong>Contexte :</strong> stage pré-embauche puis développeuse web temps plein pendant 9 mois.</p>
+              <p><strong>Livrables :</strong> composants React modulaires, version mobile/tablette responsive, intégration continue avec l'équipe back-end.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Prédiction de liens Facebook -->
+        <article class="project-card tilt-card" data-tags="graph">
+          <div class="project-thumb thumb-graph">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17 16l-4-4V8.82A3 3 0 1 0 11 8.82V12l-4 4H4v5h5v-3.05l3-3.05 3 3.05V21h5v-5h-3z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">Graphes · ML</span>
+              <span class="project-year">2022</span>
+            </div>
+            <h3>Prédiction de liens — Pages Facebook</h3>
+            <p>Combinaison d'embeddings Node2Vec et de features topologiques puis apprentissage supervisé pour prédire les connexions manquantes.</p>
+            <div class="chip-row">
+              <span class="tech-chip">NetworkX</span>
+              <span class="tech-chip">Node2Vec</span>
+              <span class="tech-chip">LightGBM</span>
+              <span class="tech-chip">Scikit-learn</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="facebook-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="facebook-extra" hidden>
+              <p><strong>Approche :</strong> comparaison entre embeddings appris et features de topologie classique (common neighbors, Jaccard, Adamic-Adar).</p>
+              <p><strong>Résultat :</strong> amélioration significative de la précision en combinant les deux familles de features.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8. KeyBERT -->
+        <article class="project-card tilt-card" data-tags="nlp">
+          <div class="project-thumb thumb-nlp">
+            <svg class="project-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 4h18v2H3V4zm0 4h12v2H3V8zm0 4h18v2H3v-2zm0 4h12v2H3v-2zm0 4h18v2H3v-2z"/></svg>
+          </div>
+          <div class="project-body">
+            <div class="project-meta">
+              <span class="project-cat">NLP · Transformers</span>
+              <span class="project-year">2023</span>
+            </div>
+            <h3>Extraction de mots-clés — KeyBERT</h3>
+            <p>Pipeline NLP sémantique pour extraire les mots-clés pertinents de textes complexes, appuyé sur des transformers.</p>
+            <div class="chip-row">
+              <span class="tech-chip">KeyBERT</span>
+              <span class="tech-chip">Transformers</span>
+              <span class="tech-chip">PyTorch</span>
+            </div>
+            <button class="toggle-project" type="button" aria-expanded="false" aria-controls="keybert-extra">
+              <span class="label-open">Afficher plus</span>
+              <span class="label-close">Afficher moins</span>
+            </button>
+            <div class="project-extra" id="keybert-extra" hidden>
+              <p><strong>Usage :</strong> indexation thématique, résumé assisté et recherche sémantique dans des corpus spécialisés.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">06 · Reconnaissance</span>
+        <h2>Certifications &amp; Langues</h2>
+      </div>
+
+      <div class="grid-2">
+        <article class="cert-card tilt-card">
+          <div class="cert-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M19 5h-2V3H7v2H5a2 2 0 0 0-2 2v2c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 16.9V19H7v2h10v-2h-4v-2.1A5.01 5.01 0 0 0 16.61 14C19.08 13.63 21 11.55 21 9V7a2 2 0 0 0-2-2zM5 9V7h2v3.82A2.99 2.99 0 0 1 5 8.94V9zm14 0c0 1.43-1 2.61-2 2.82V7h2v2z"/></svg>
+          </div>
+          <div>
+            <h3>Big Data Engineer 2021 Mastery Award</h3>
+            <p>Distinction reconnaissant la maîtrise du parcours Big Data Engineer.</p>
+          </div>
+        </article>
+        <article class="cert-card tilt-card">
+          <div class="cert-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 3l-1 2-2-1-1 2-2 0 0 2-2 1 1 2-2 1 2 1-1 2 2 1 0 2 2 0 1 2 2-1 1 2 1-2 2 1 1-2 2 0 0-2 2-1-1-2 2-1-2-1 1-2-2-1 0-2-2 0-1-2-2 1-1-2zm0 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
+          </div>
+          <div>
+            <h3>Salesforce Certified AI Associate</h3>
+            <p>Certification Salesforce — IA appliquée et bonnes pratiques éthiques (janvier 2025).</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="languages">
+        <h3>Langues</h3>
+        <div class="lang-grid">
+          <div class="lang-card">
+            <div class="lang-flag">🇫🇷</div>
+            <div>
+              <strong>Français</strong>
+              <p>Niveau C1 — certifié TCF</p>
+            </div>
+          </div>
+          <div class="lang-card">
+            <div class="lang-flag">🇬🇧</div>
+            <div>
+              <strong>Anglais</strong>
+              <p>Niveau professionnel</p>
+            </div>
+          </div>
+          <div class="lang-card">
+            <div class="lang-flag">🇲🇦</div>
+            <div>
+              <strong>Arabe</strong>
+              <p>Langue maternelle</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="panel contact-panel reveal">
+      <div class="section-head">
+        <span class="section-kicker">07 · Contact</span>
+        <h2>Discutons de ce poste à Ajaccio</h2>
+        <p class="section-sub">Disponible immédiatement pour un CDD ou CDI en développement, data ou systèmes d'information.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a class="contact-card tilt-card" href="mailto:jamhouryousra@gmail.com?subject=Candidature%20CDD%20Informaticien%20%28GIRTEC%2C%20offre%20207HWVV%29">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <strong>Email</strong>
+          <span>jamhouryousra@gmail.com</span>
+        </a>
+        <a class="contact-card tilt-card" href="tel:+33759626164">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.05-.24c1.16.39 2.42.6 3.71.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.29.21 2.55.6 3.71a1 1 0 0 1-.24 1.05l-2.2 2.03z"/></svg>
+          </div>
+          <strong>Téléphone</strong>
+          <span>+33 7 59 62 61 64</span>
+        </a>
+        <a class="contact-card tilt-card" href="https://www.linkedin.com/in/yousra-jamhour-b939b81a5/" target="_blank" rel="noopener noreferrer">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 17H6.5v-7H9v7zm-1.2-8a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm10 8h-2.5v-3.5c0-.9 0-2-1.2-2s-1.4.9-1.4 2V17h-2.5v-7h2.4v1h.1c.3-.6 1.2-1.2 2.4-1.2 2.6 0 3.1 1.7 3.1 4V17z"/></svg>
+          </div>
+          <strong>LinkedIn</strong>
+          <span>yousra-jamhour</span>
+        </a>
+        <a class="contact-card tilt-card" href="https://github.com/jamhouryousra" target="_blank" rel="noopener noreferrer">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+          </div>
+          <strong>GitHub</strong>
+          <span>github.com/jamhouryousra</span>
+        </a>
+        <a class="contact-card tilt-card" href="CV%20JAMHOUR%20Yousra%20M2.pdf" target="_blank" rel="noopener noreferrer">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 13h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
+          </div>
+          <strong>CV (PDF)</strong>
+          <span>Télécharger le CV</span>
+        </a>
+      </div>
+
+      <a class="github-cta" href="https://github.com/jamhouryousra" target="_blank" rel="noopener noreferrer">
+        <div class="github-cta-icon">
+          <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        </div>
+        <div class="github-cta-body">
+          <strong>Voir tous mes dépôts GitHub</strong>
+          <span>github.com/jamhouryousra — code source, rapport PFE ENSIAS, projets IA et web</span>
+        </div>
+        <svg class="github-cta-arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M10 6L8.6 7.4 13.2 12l-4.6 4.6L10 18l6-6z"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <strong>Yousra Jamhour</strong>
+        <p>Ingénieure des données · Candidate CDD informaticien — Ajaccio</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:jamhouryousra@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/yousra-jamhour-b939b81a5/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/jamhouryousra" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="CV%20JAMHOUR%20Yousra%20M2.pdf" target="_blank" rel="noopener noreferrer">CV PDF</a>
+        <a href="index.html">Version M2</a>
+        <a href="index-alternance.html">Version Alternance</a>
+      </div>
+    </div>
+    <p class="footer-copy">© <span id="current-year">2026</span> Yousra Jamhour — Portfolio conçu pour la candidature poste informaticien généraliste.</p>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Retour en haut">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 5l7 7h-4v7h-6v-7H5z"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+
+  <!-- Override du typewriter pour la vue GIRTEC (sans modifier script.js) -->
+  <script>
+    (function () {
+      function startGirtecTypewriter() {
+        const orig = document.getElementById("typed-role");
+        if (!orig) return;
+
+        // On clone l'élément pour le détacher de la référence capturée par script.js.
+        // Le typewriter d'origine continuera à écrire dans un nœud orphelin (invisible)
+        // pendant que notre version pilote le nœud désormais présent dans le DOM.
+        const fresh = orig.cloneNode(false);
+        fresh.textContent = "";
+        orig.parentNode.replaceChild(fresh, orig);
+
+        const roles = [
+          "Développeuse polyvalente",
+          "Ingénieure des données",
+          "Profil généraliste"
+        ];
+
+        let idx = 0, ci = 0, deleting = false;
+
+        function tick() {
+          const txt = roles[idx];
+          if (!deleting) {
+            fresh.textContent = txt.slice(0, ci + 1);
+            ci++;
+            if (ci === txt.length) {
+              deleting = true;
+              setTimeout(tick, 1800);
+              return;
+            }
+            setTimeout(tick, 75);
+          } else {
+            fresh.textContent = txt.slice(0, ci - 1);
+            ci--;
+            if (ci === 0) {
+              deleting = false;
+              idx = (idx + 1) % roles.length;
+              setTimeout(tick, 300);
+              return;
+            }
+            setTimeout(tick, 40);
+          }
+        }
+
+        // Petit délai pour laisser script.js capturer sa propre référence avant
+        // que l'on ne remplace l'élément. Ainsi on est sûrs qu'aucune écriture
+        // visible de l'ancien typewriter ne précédera la nôtre.
+        setTimeout(tick, 100);
+      }
+
+      if (document.readyState === "complete" || document.readyState === "interactive") {
+        // script.js est déjà chargé puisqu'il précède ce script et n'est pas defer.
+        startGirtecTypewriter();
+      } else {
+        document.addEventListener("DOMContentLoaded", startGirtecTypewriter);
+      }
+    })();
+  </script>
+</body>
+</html>
